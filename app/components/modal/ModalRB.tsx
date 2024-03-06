@@ -1,10 +1,9 @@
-import React from 'react';
-import { ButtonRB } from '../button/ButtonRB';
-import {
-  Modal,
-  Box
-} from '@mui/material';
-import { styled } from '@mui/material/styles';
+"use client";
+
+import React from "react";
+import { ButtonRB } from "../button/ButtonRB";
+import { Modal, Box } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 /**
  * Standard Modal
@@ -13,20 +12,19 @@ export const ModalRB = ({
   ActionComponent = <DefaultActionComponent />,
   BodyComponent = <DefaultBodyComponent />,
   disableBackdropClick = true,
-  closePopover = () => { },
+  closePopover = () => {},
   title,
   description,
   open = false,
-  sx
+  sx,
 }: ModalRBProps) => {
-
   const [openState, setOpenState] = React.useState(open);
-  const modalPreventReasons = ['backdropClick', 'escapeKeyDown'];
+  const modalPreventReasons = ["backdropClick", "escapeKeyDown"];
 
   // Handle open state when updated from parent
   React.useEffect(() => {
     setOpenState(open);
-  }, [open])
+  }, [open]);
 
   const handleOpen = (event: any) => {
     event.stopPropagation();
@@ -50,7 +48,7 @@ export const ModalRB = ({
 
   // Add Open functionality to passed in Action component
   const ActionComponentEl = React.cloneElement(ActionComponent, {
-    onClick: handleOpen
+    onClick: handleOpen,
   });
 
   return (
@@ -63,99 +61,90 @@ export const ModalRB = ({
         data-testid="modalrb-modal"
         open={openState}
         sx={sx}
-        onClose={closeModal}>
-
+        onClose={closeModal}
+      >
         <ModalBody
           title={title}
           description={description}
           BodyComponent={BodyComponent}
           closeModal={closeModal}
         />
-
       </Modal>
     </div>
   );
 };
 
-const ModalBody = React.forwardRef((
-  {
-    classes,
-    title,
-    description,
-    BodyComponent,
-    closeModal,
-    ...props
-  }: any,
-  ref1: any
-) => {
+const ModalBody = React.forwardRef(
+  (
+    { classes, title, description, BodyComponent, closeModal, ...props }: any,
+    ref1: any
+  ) => {
+    // Inject closeModal function,
+    // height, and width of Modal
+    const BodyComponentEl = React.cloneElement(BodyComponent, {
+      closeModal,
+    });
 
-  // Inject closeModal function,
-  // height, and width of Modal
-  const BodyComponentEl = React.cloneElement(BodyComponent, {
-    closeModal
-  });
+    return (
+      <ModalBodyStyled
+        {...props}
+        data-testid="modalrb-body"
+        className={`modal-body-container`}
+      >
+        <Title title={title} />
 
-  return (
-    <ModalBodyStyled
-      {...props}
-      data-testid="modalrb-body"
-      className={`modal-body-container`}>
+        <Description description={description} />
 
-      <Title title={title} />
+        {BodyComponentEl}
+      </ModalBodyStyled>
+    );
+  }
+);
 
-      <Description description={description} />
-
-      {BodyComponentEl}
-
-    </ModalBodyStyled>
-  );
-});
-
-const ModalBodyStyled = styled(Box)(({
-  theme
-}: any) => {
+const ModalBodyStyled = styled(Box)(({ theme }: any) => {
   return {
     fontSize: theme.typography.fontSize,
     fontFamily: theme.typography.fontFamily,
-    display: 'grid',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    position: 'absolute',
-    borderRadius: '4px',
+    display: "grid",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    position: "absolute",
+    borderRadius: "4px",
     padding: 24,
-    background: '#FFF',
-    boxShadow: '0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);',
+    background: "#FFF",
+    boxShadow:
+      "0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);",
     gap: theme.spacing(3),
-    width: '75%',
-    maxWidth: 'inherit',
-    maxHeight: '85vh',
-    overflowY: 'auto',
+    width: "75%",
+    maxWidth: "inherit",
+    maxHeight: "85vh",
+    overflowY: "auto",
 
-    '& .modal-title': {
-      fontSize: '20px',
-      fontWeight: '700',
-      lineHeight: '32px',
-      textAlign: 'left'
+    "& .modal-title": {
+      fontSize: "20px",
+      fontWeight: "700",
+      lineHeight: "32px",
+      textAlign: "left",
     },
 
-    '& .modal-description': {
+    "& .modal-description": {
       color: theme.palette.text.secondary,
-      fontSize: '16px',
-      fontWeight: '400',
-      lineHeight: '24px',
-      textAlign: 'left'
+      fontSize: "16px",
+      fontWeight: "400",
+      lineHeight: "24px",
+      textAlign: "left",
     },
 
-    '& .button-row': {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
+    "& .button-row": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-end",
       gap: theme.spacing(1),
     },
-  }
+  };
 });
 
 const Title = ({ title }: any) => {
@@ -175,7 +164,7 @@ const Description = ({ description }: any) => {
 };
 
 const DefaultActionComponent = ({
-  onClick = () => { }
+  onClick = () => {},
 }: {
   onClick?: () => void;
 }) => {
@@ -187,7 +176,7 @@ const DefaultActionComponent = ({
 };
 
 export const DefaultBodyComponent = ({
-  closeModal = () => { }
+  closeModal = () => {},
 }: {
   closeModal?: () => void;
 }) => {
@@ -237,5 +226,5 @@ export interface ModalRBProps {
   /**
    * CSS custom styling
    */
-  sx?: Object
+  sx?: Object;
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { AppBar, Toolbar, IconButton, Typography, Box } from "@mui/material";
 import { Menu } from "@mui/icons-material";

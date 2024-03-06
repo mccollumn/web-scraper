@@ -5,6 +5,7 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import theme from "@/theme";
 import { ThemeProvider } from "@mui/material/styles";
 import { NavigationMenu } from "./components/navigation/NavigationMenu";
+import { navigationActions } from "./components/navigation/navigationActions";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,12 @@ export default function RootLayout({
       <body className={inter.className}>
         <AppRouterCacheProvider>
           <ThemeProvider theme={theme}>
-            <NavigationMenu isAuthorized={true}>{children}</NavigationMenu>
+            <NavigationMenu
+              isAuthorized={true}
+              navigationActions={navigationActions}
+            >
+              {children}
+            </NavigationMenu>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
