@@ -1,7 +1,9 @@
+"use client";
+
 import { TextFieldElement, PasswordElement } from "react-hook-form-mui";
 import { FormWrapper, FormWrapperProps } from "../components/form/FormWrapper";
 
-export const Login = ({
+const Login = ({
   onLoginSubmit = () => {},
   onRegisterRedirect,
   title = "Member Login",
@@ -103,9 +105,9 @@ const DefaultDescription = ({ onRegisterRedirect = () => {} }: any) => {
   );
 };
 
-export const specialCharacterRegex = /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~/]/g;
-export const numberRegex = /[0-9]/g;
-export const matchPasswordValidate = ({
+const specialCharacterRegex = /[ `!@#$%^&*()_+\-=\]{};':"\\|,.<>?~/]/g;
+const numberRegex = /[0-9]/g;
+const matchPasswordValidate = ({
   p = "",
   message = "",
   regex,
@@ -121,7 +123,8 @@ export interface LoginProps
   /**
    * Handler when Login form is submitted
    */
-  onLoginSubmit?: (formValues: any) => void;
+  onLoginSubmit?: any;
+  // onLoginSubmit?: (formValues: any) => void;
   /**
    * on User redirect to "Register" page
    */
@@ -151,3 +154,5 @@ export interface LoginProps
    */
   closeModal?: Function;
 }
+
+export default Login;
