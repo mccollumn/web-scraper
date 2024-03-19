@@ -1,20 +1,22 @@
 import React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import {
-  ButtonRB,
-  ButtonRBProps
-} from './ButtonRB';
+import { StoryObj, Meta } from "@storybook/react";
+import { ButtonRB, ButtonRBProps } from "./ButtonRB";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-export default {
-  title: "Button",
+const meta = {
+  title: "New Button",
   component: ButtonRB,
-  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-  argTypes: {
+  // More on argTypes: https://storybook.js.org/docs/api/argtypes
+  argTypes: {},
+} satisfies Meta<typeof ButtonRB>;
 
-  },
-} as ComponentMeta<typeof ButtonRB>;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-const Template: ComponentStory<typeof ButtonRB> = (args) => <ButtonRB {...args} />;
+// const Template: StoryObj<typeof ButtonRB> = (args) => <ButtonRB {...args} />;
 
-export const Default = Template.bind({});
+// export const Default = Template.bind({});
+
+export const Primary: Story = {
+  args: {},
+};
