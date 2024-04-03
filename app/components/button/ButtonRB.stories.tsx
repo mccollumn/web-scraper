@@ -6,6 +6,7 @@ import { ButtonRB, ButtonRBProps } from "./ButtonRB";
 const meta = {
   title: "New Button",
   component: ButtonRB,
+  tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {},
 } satisfies Meta<typeof ButtonRB>;
@@ -18,5 +19,6 @@ type Story = StoryObj<typeof meta>;
 // export const Default = Template.bind({});
 
 export const Primary: Story = {
-  args: {},
+  args: {
+  },
 };

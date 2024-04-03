@@ -1,17 +1,19 @@
 import {
-  ComponentStory, ComponentMeta
+  StoryObj, Meta
 } from '@storybook/react';
 import { ModalRB } from './ModalRB';
 
-export default {
+const meta ={
   title: 'Modal',
   component: ModalRB,
-} as ComponentMeta<typeof ModalRB>;
+} satisfies Meta<typeof meta>;
 
-const Template: ComponentStory<typeof ModalRB> = (args) => <ModalRB {...args} />;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const SimpleModal = Template.bind({});
-SimpleModal.args = {
-  title: 'Sample Modal',
-  description: 'Body component gets injected with a closeModal() function'
-}
+export const SimpleModal: Story = {
+  args: {
+    title: 'Sample Modal',
+    description: 'Body component gets injected with a closeModal() function'
+  }
+};
