@@ -1,17 +1,18 @@
+"use client"
+
 import {
   Person,
-  Notifications,
-  Settings,
+  Notifications as NotificationsIcon,
+  Settings as SettingsIcon,
   Assessment,
   Apps,
   Logout,
   ManageAccounts,
 } from "@mui/icons-material";
-import { NavigationAction } from "../NavigationMenu";
-import SearchInput from "../../form/SearchInput";
-import { Login } from "../../../login/page";
+import { Login } from "../../login/page";
+import { SearchInput } from "../form/SearchInput";
 
-export const mockNavActions: Array<NavigationAction> = [
+export const navigationActions: Array<NavigationAction> = [
   {
     key: "Search",
     label: "Search",
@@ -19,16 +20,16 @@ export const mockNavActions: Array<NavigationAction> = [
     ariaLabel: "Search",
     authFilter: "authorized",
     position: "top",
-    Component: (
-      <SearchInput
-        onChange={(value: any) => {
-          console.log(value);
-        }}
-        variant={"outlined"}
-        margin={"none"}
-        sx={{ "& .MuiInputBase-root": { backgroundColor: "white" } }}
-      />
-    ),
+      Component: (
+        <SearchInput
+          onChange={(value: any) => {
+            console.log(value);
+          }}
+          variant={"outlined"}
+          margin={"none"}
+          sx={{ "& .MuiInputBase-root": { backgroundColor: "white" } }}
+        />
+      ),
     snapPosition: "right",
   },
   {
@@ -57,7 +58,7 @@ export const mockNavActions: Array<NavigationAction> = [
   {
     key: "Notifications",
     label: "Notifications",
-    icon: <Notifications />,
+    icon: <NotificationsIcon />,
     ariaLabel: "Notifications",
     authFilter: "authorized",
     position: "top",
@@ -65,7 +66,7 @@ export const mockNavActions: Array<NavigationAction> = [
   {
     key: "Settings",
     label: "Settings",
-    icon: <Settings />,
+    icon: <SettingsIcon />,
     ariaLabel: "Settings",
     authFilter: "authorized",
     position: "top",
@@ -91,7 +92,7 @@ export const mockNavActions: Array<NavigationAction> = [
         icon: <Logout />,
         ariaLabel: "Logout",
       },
-    ],
+    ]
   },
   {
     key: "Login",
@@ -101,6 +102,69 @@ export const mockNavActions: Array<NavigationAction> = [
     authFilter: "unauthorized",
     position: "top",
     // Display a Modal on Click
-    ModalBody: <Login onLoginSubmit={(values: any) => console.info(values)} />,
+    ModalBody: (
+      <Login
+        onLoginSubmit={(values: any) => console.info(values)}
+      />
+    ),
   },
 ];
+
+export interface NavigationAction {
+  key?: string;
+  /**
+   * Display actions on authorization state
+   * always: Always show regardless of auth status
+   * authorized: Only show when user is authorized
+   * unauthorized: Only show when user is not authorized
+   */
+  authFilter: "always" | "authorized" | "unauthorized";
+  /**
+   * Display text to the user
+   */
+  label?: string;
+  /**
+   * Aria text
+   */
+  ariaLabel?: string;
+  /**
+   * MUI Icon to display
+   */
+  icon?: React.ReactElement | null;
+  /**
+   * Display a divider in navigation
+   */
+  divider?: Boolean;
+  /**
+   * Path to redirect to on nav click
+   */
+  path?: string;
+  /**
+   * Define which navigation area to display the action
+   * left: Left navigation drawer
+   * top: Top app navigation
+   */
+  position: "left" | "top";
+  /**
+   * Render custom nav component
+   */
+  Component?: React.ReactElement | null;
+  /**
+   * Snap custom component to position in app bar
+   */
+  snapPosition?: "left" | "center" | "right";
+  /**
+   * Displays a Modal on click with this component as Body
+   */
+  ModalBody?: React.ReactElement;
+  /**
+   * Nested Navigation Popover Actions
+   * All actions will be listed beneath
+   * as options within a Popover on click
+   */
+  popoverActions?: Array<PopoverNavigationActionProps>;
+}
+
+export interface PopoverNavigationActionProps extends Omit<NavigationAction, 'position' | 'authFilter'> {
+
+}
