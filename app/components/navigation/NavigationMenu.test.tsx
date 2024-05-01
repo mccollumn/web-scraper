@@ -1,6 +1,6 @@
 import { NavigationMenu, NavigationAction } from "./NavigationMenu";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
-import { mockNavActions } from "./mocks/navActions";
+import { navigationActions } from "./mocks/navActions";
 
 const MockLogo = () => {
   return <div>Mock Logo</div>;
@@ -16,7 +16,7 @@ describe("<Layout />", () => {
     const mockNavigationClick = jest.fn();
     render(
       <NavigationMenu
-        navigationActions={mockNavActions}
+        navigationActions={navigationActions}
         navigationClick={mockNavigationClick}
         isAuthorized={true}
       />
@@ -29,20 +29,20 @@ describe("<Layout />", () => {
     });
     fireEvent.click(screen.getByText("Reports"));
     await waitFor(() => {
-      expect(mockNavigationClick).toBeCalledWith(mockNavActions[2]);
+      expect(mockNavigationClick).toBeCalledWith(navigationActions[2]);
     });
   });
 
   it("Select popover top navigation item", async () => {
     // @ts-ignore
-    const expectedNavAction = mockNavActions.find(
+    const expectedNavAction = navigationActions.find(
       (m: any) => m?.label === "Avatar"
     ).popoverActions[0];
 
     const mockNavigationClick = jest.fn();
     render(
       <NavigationMenu
-        navigationActions={mockNavActions}
+        navigationActions={navigationActions}
         navigationClick={mockNavigationClick}
         isAuthorized={true}
       />
@@ -61,7 +61,7 @@ describe("<Layout />", () => {
   it("Select Modal top navigation item", async () => {
     render(
       <NavigationMenu
-        navigationActions={mockNavActions}
+        navigationActions={navigationActions}
         //navigationClick={mockNavigationClick}
         isAuthorized={false}
       />
@@ -77,7 +77,7 @@ describe("<Layout />", () => {
     render(
       <NavigationMenu
         navigationActions={[
-          ...mockNavActions,
+          ...navigationActions,
           {
             key: "component",
             Component: <MockLogo />,
@@ -93,7 +93,7 @@ describe("<Layout />", () => {
 
   it("Should expand and contract left navigation", () => {
     render(
-      <NavigationMenu navigationActions={mockNavActions} isAuthorized={false} />
+      <NavigationMenu navigationActions={navigationActions} isAuthorized={false} />
     );
 
     // Expand
@@ -109,7 +109,7 @@ describe("<Layout />", () => {
 
   it("Should filter non-authorized nav actions", () => {
     render(
-      <NavigationMenu navigationActions={mockNavActions} isAuthorized={false} />
+      <NavigationMenu navigationActions={navigationActions} isAuthorized={false} />
     );
 
     expect(screen.getByLabelText("Login")).toBeInTheDocument();
@@ -117,7 +117,7 @@ describe("<Layout />", () => {
 
   it("Should display custom component in top nav bar", () => {
     render(
-      <NavigationMenu navigationActions={mockNavActions} isAuthorized={true} />
+      <NavigationMenu navigationActions={navigationActions} isAuthorized={true} />
     );
 
     expect(screen.getByLabelText("search")).toBeInTheDocument();

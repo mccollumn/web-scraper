@@ -9,8 +9,8 @@ import {
   Logout,
   ManageAccounts,
 } from "@mui/icons-material";
-import { Login } from "../../login/page";
-import { SearchInput } from "../form/SearchInput";
+import { Login } from "../../../login/page";
+import { SearchInput } from "../../form/SearchInput";
 
 export const navigationActions: Array<NavigationAction> = [
   {
