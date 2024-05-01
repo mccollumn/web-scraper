@@ -3,7 +3,7 @@
 import { TextFieldElement, PasswordElement } from "react-hook-form-mui";
 import { FormWrapper, FormWrapperProps } from "../components/form/FormWrapper";
 
-const Login = ({
+export const Login = ({
   onLoginSubmit = () => {},
   onRegisterRedirect,
   title = "Member Login",
