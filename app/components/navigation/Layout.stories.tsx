@@ -8,14 +8,14 @@ import {
   Apps,
 } from "@mui/icons-material";
 import { NavigationMenu } from "./NavigationMenu";
-import { mockNavActions } from "./mocks/navActions";
+import { navigationActions } from "./mocks/navActions";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: "Layout",
   component: NavigationMenu,
   decorators: [
-    (Story) => (
+    (Story: any) => (
       <div
         style={{
           margin: "-1rem", // Offset parent storybook padding
@@ -28,7 +28,7 @@ export default {
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     navigationActions: {
-      defaultValue: mockNavActions,
+      defaultValue: navigationActions,
     },
     isAuthorized: {
       value: true,
@@ -37,7 +37,7 @@ export default {
 } as ComponentMeta<typeof NavigationMenu>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof NavigationMenu> = (args) => (
+const Template: ComponentStory<typeof NavigationMenu> = (args: any) => (
   <NavigationMenu {...args} />
 );
 
@@ -58,7 +58,7 @@ export const LoggedIn = () => {
   return (
     <NavigationMenu
       label={"Logged In"}
-      navigationActions={mockNavActions}
+      navigationActions={navigationActions}
       navigationClick={clickHandler}
       isAuthorized={true}
     >
