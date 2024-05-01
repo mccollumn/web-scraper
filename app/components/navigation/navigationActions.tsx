@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Person,
   Notifications as NotificationsIcon,
@@ -7,6 +9,8 @@ import {
   Logout,
   ManageAccounts,
 } from "@mui/icons-material";
+import { SearchInput } from "../form/SearchInput";
+import { Login } from "../../login/page";
 
 export const navigationActions: Array<NavigationAction> = [
   {
@@ -16,16 +20,16 @@ export const navigationActions: Array<NavigationAction> = [
     ariaLabel: "Search",
     authFilter: "authorized",
     position: "top",
-    //   Component: (
-    //     <SearchInput
-    //       onChange={(value: any) => {
-    //         console.log(value);
-    //       }}
-    //       variant={"outlined"}
-    //       margin={"none"}
-    //       sx={{ "& .MuiInputBase-root": { backgroundColor: "white" } }}
-    //     />
-    //   ),
+    Component: (
+      <SearchInput
+        onChange={(value: any) => {
+          console.log(value);
+        }}
+        variant={"outlined"}
+        margin={"none"}
+        sx={{ "& .MuiInputBase-root": { backgroundColor: "white" } }}
+      />
+    ),
     snapPosition: "right",
   },
   {
@@ -75,20 +79,20 @@ export const navigationActions: Array<NavigationAction> = [
     authFilter: "authorized",
     position: "top",
     // Displays a popover menu on click
-    //   popoverActions: [
-    //     {
-    //       key: "ACCOUNT_SETTINGS",
-    //       label: "Account Settings",
-    //       icon: <ManageAccounts />,
-    //       ariaLabel: "Account Settings",
-    //     },
-    //     {
-    //       key: "LOGOUT",
-    //       label: "Logout",
-    //       icon: <Logout />,
-    //       ariaLabel: "Logout",
-    //     },
-    //   ]
+    popoverActions: [
+      {
+        key: "ACCOUNT_SETTINGS",
+        label: "Account Settings",
+        icon: <ManageAccounts />,
+        ariaLabel: "Account Settings",
+      },
+      {
+        key: "LOGOUT",
+        label: "Logout",
+        icon: <Logout />,
+        ariaLabel: "Logout",
+      },
+       ]
   },
   {
     key: "Login",
@@ -98,11 +102,11 @@ export const navigationActions: Array<NavigationAction> = [
     authFilter: "unauthorized",
     position: "top",
     // Display a Modal on Click
-    //   ModalBody: (
-    //     <Login
-    //       onLoginSubmit={(values: any) => console.info(values)}
-    //     />
-    //   ),
+    ModalBody: (
+      <Login
+        onLoginSubmit={(values: any) => console.info(values)}
+      />
+    ),
   },
 ];
 
@@ -149,4 +153,18 @@ export interface NavigationAction {
    * Snap custom component to position in app bar
    */
   snapPosition?: "left" | "center" | "right";
+  /**
+   * Nested Navigation Popover Actions
+   * All actions will be listed beneath
+   * as options within a Popover on click
+   */
+  popoverActions?: Array<PopoverNavigationActionProps>;
+  /**
+   * Displays a Modal on click with this component as Body
+   */
+  ModalBody?: React.ReactElement;
+}
+
+export interface PopoverNavigationActionProps extends Omit<NavigationAction, 'position' | 'authFilter'> {
+
 }
