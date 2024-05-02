@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from 'next/navigation'
 import { Box } from "@mui/material";
 import { TopNavBar } from "./TopNavBar";
 import { LeftNavDrawer } from "./LeftNavDrawer";
@@ -10,7 +11,6 @@ import { styled } from "@mui/material/styles";
 export const NavigationMenu = ({
   label,
   navigationActions = [],
-  navigationClick = () => {},
   topNavHeight = 64,
   leftNavMinWidth = 64,
   leftNavMaxWidth = 240,
@@ -20,12 +20,19 @@ export const NavigationMenu = ({
   const [open, setOpen] = React.useState(false);
   const [selectedNav, setSelectedNav]: any = React.useState();
 
+  const router = useRouter();
+
   const expandNav = () => setOpen(true);
   const collapseNav = () => setOpen(false);
 
   const navClickHandler = (action: NavigationAction) => {
     setSelectedNav(action);
-    navigationClick(action);
+
+    // Redirect to page
+    if(!action.path) {
+      return;
+    }
+    router.push(action.path);  
   };
 
   const { topNavActions, leftNavActions, leftNavCount } = getNavigationActions(
@@ -81,8 +88,7 @@ export const NavigationMenu = ({
           width: "100%",
           height: "100%",
           padding: "24px",
-        }}
-      >
+        }}>
         {children}
       </Box>
     </LayoutBaseStyled>
@@ -144,10 +150,6 @@ interface NavigationMenuProps {
    * Current user authorized status
    */
   isAuthorized: boolean;
-  /**
-   * Event when navigation is clicked, returns navigation item
-   */
-  navigationClick?: Function;
   /**
    * Top navigation bar height
    */

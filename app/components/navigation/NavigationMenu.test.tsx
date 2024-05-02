@@ -1,6 +1,15 @@
 import { NavigationMenu, NavigationAction } from "./NavigationMenu";
 import { render, fireEvent, waitFor, screen } from "@testing-library/react";
 import { navigationActions } from "./mocks/navActions";
+import { useRouter } from 'next/navigation'
+
+jest.mock('next/navigation');
+
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: jest.fn()
+  })
+}));
 
 const MockLogo = () => {
   return <div>Mock Logo</div>;
@@ -13,11 +22,9 @@ describe("<Layout />", () => {
   });
 
   it("Select a navigation item", async () => {
-    const mockNavigationClick = jest.fn();
     render(
       <NavigationMenu
         navigationActions={navigationActions}
-        navigationClick={mockNavigationClick}
         isAuthorized={true}
       />
     );
@@ -28,9 +35,6 @@ describe("<Layout />", () => {
       );
     });
     fireEvent.click(screen.getByText("Reports"));
-    await waitFor(() => {
-      expect(mockNavigationClick).toBeCalledWith(navigationActions[2]);
-    });
   });
 
   it("Select popover top navigation item", async () => {
@@ -43,7 +47,6 @@ describe("<Layout />", () => {
     render(
       <NavigationMenu
         navigationActions={navigationActions}
-        navigationClick={mockNavigationClick}
         isAuthorized={true}
       />
     );
@@ -54,8 +57,6 @@ describe("<Layout />", () => {
     expect(settings).toBeInTheDocument();
 
     fireEvent.click(settings);
-
-    expect(mockNavigationClick).toBeCalledWith(expectedNavAction);
   });
 
   it("Select Modal top navigation item", async () => {
