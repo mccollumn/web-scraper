@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Person,
@@ -91,8 +91,9 @@ export const navigationActions: Array<NavigationAction> = [
         label: "Logout",
         icon: <Logout />,
         ariaLabel: "Logout",
+        path: "/logout",
       },
-       ]
+    ],
   },
   {
     key: "Login",
@@ -102,11 +103,7 @@ export const navigationActions: Array<NavigationAction> = [
     authFilter: "unauthorized",
     position: "top",
     // Display a Modal on Click
-    ModalBody: (
-      <Login
-        onLoginSubmit={(values: any) => console.info(values)}
-      />
-    ),
+    ModalBody: <Login onLoginSubmit={(values: any) => console.info(values)} />,
   },
 ];
 
@@ -165,6 +162,5 @@ export interface NavigationAction {
   ModalBody?: React.ReactElement;
 }
 
-export interface PopoverNavigationActionProps extends Omit<NavigationAction, 'position' | 'authFilter'> {
-
-}
+export interface PopoverNavigationActionProps
+  extends Omit<NavigationAction, "position" | "authFilter"> {}
