@@ -91,7 +91,7 @@ export const navigationActions: Array<NavigationAction> = [
         label: "Logout",
         icon: <Logout />,
         ariaLabel: "Logout",
-        path: "/logout",
+        path: "/api/auth/signout",
       },
     ],
   },
@@ -102,8 +102,9 @@ export const navigationActions: Array<NavigationAction> = [
     ariaLabel: "Login",
     authFilter: "unauthorized",
     position: "top",
+    path: "/api/auth/signin",
     // Display a Modal on Click
-    ModalBody: <Login onLoginSubmit={(values: any) => console.info(values)} />,
+    // ModalBody: <Login onLoginSubmit={(values: any) => console.info(values)} />,
   },
 ];
 
