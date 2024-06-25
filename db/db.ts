@@ -1,0 +1,57 @@
+// This approach is taken from https://github.com/vercel/next.js/tree/canary/examples/with-mongodb
+import { MongoClient, ServerApiVersion } from "mongodb";
+
+if (!process.env.MONGODB_URI) {
+  throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
+}
+
+const uri = process.env.MONGODB_URI;
+const options = {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+};
+
+let client;
+let clientPromise: Promise<MongoClient>;
+
+client = new MongoClient(uri);
+clientPromise = client.connect();
+
+// Export a module-scoped MongoClient promise. By doing this in a
+// separate module, the client can be shared across functions.
+export default clientPromise;
+
+/*
+// TypeORM
+
+import { DataSource, DataSourceOptions } from "typeorm"
+
+export let AppDataStore: DataSource;
+
+export async function getDb() {
+    if (AppDataStore) return AppDataStore;
+    const dbSettings = getDbSettings();
+    try {
+        AppDataStore = new DataSource(dbSettings)
+        await AppDataStore.initialize()
+        console.log(`Db initialized`)
+    } catch (err: any) {
+        console.error(`dbConnectionManager - error initializing db. Error: ${err.message}`)
+    }
+    return AppDataStore;
+}
+
+function getDbSettings() {
+    const dbSettings: DataSourceOptions = {
+        type: "sqlite",
+        database: ":memory:",
+        dropSchema: true,
+        synchronize: true,
+        logging: false
+    }
+    return dbSettings
+}
+*/

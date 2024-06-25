@@ -2,6 +2,19 @@ import NextAuth, { NextAuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+// import { TypeORMAdapter } from "@auth/typeorm-adapter"
+// import { DataSourceOptions } from "typeorm"
+import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import clientPromise from "@/db/db";
+import type { Adapter as NextAuthAdapter } from "next-auth/adapters";
+
+// const dbSettings: DataSourceOptions = {
+//   type: "sqlite",
+//   database: ":memory:",
+//   dropSchema: true,
+//   synchronize: true,
+//   logging: false
+// }
 
 export const authOptions: NextAuthOptions = {
   // Configure one or more authentication providers
@@ -42,6 +55,8 @@ export const authOptions: NextAuthOptions = {
     }),
     // ...add more providers here
   ],
+  // adapter: TypeORMAdapter(dbSettings) as NextAuthAdapter
+  adapter: MongoDBAdapter(clientPromise) as NextAuthAdapter,
 };
 
 const handler = NextAuth(authOptions);

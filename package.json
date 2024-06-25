@@ -12,6 +12,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@auth/mongodb-adapter": "^3.4.1",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
@@ -23,12 +24,14 @@
     "@types/lodash": "^4.14.202",
     "date-fns": "^3.3.1",
     "lodash": "^4.17.21",
+    "mongodb": "^6.7.0",
     "next": "14.1.0",
     "next-auth": "^4.24.7",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.0",
     "react-hook-form-mui": "^7.0.0-beta.0",
+    "sqlite3": "^5.1.7",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
