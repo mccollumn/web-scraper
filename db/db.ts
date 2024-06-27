@@ -23,35 +23,3 @@ clientPromise = client.connect();
 // Export a module-scoped MongoClient promise. By doing this in a
 // separate module, the client can be shared across functions.
 export default clientPromise;
-
-/*
-// TypeORM
-
-import { DataSource, DataSourceOptions } from "typeorm"
-
-export let AppDataStore: DataSource;
-
-export async function getDb() {
-    if (AppDataStore) return AppDataStore;
-    const dbSettings = getDbSettings();
-    try {
-        AppDataStore = new DataSource(dbSettings)
-        await AppDataStore.initialize()
-        console.log(`Db initialized`)
-    } catch (err: any) {
-        console.error(`dbConnectionManager - error initializing db. Error: ${err.message}`)
-    }
-    return AppDataStore;
-}
-
-function getDbSettings() {
-    const dbSettings: DataSourceOptions = {
-        type: "sqlite",
-        database: ":memory:",
-        dropSchema: true,
-        synchronize: true,
-        logging: false
-    }
-    return dbSettings
-}
-*/
