@@ -51,7 +51,7 @@ export const authOptions: NextAuthOptions = {
     }),
     // ...add more providers here
   ],
-  adapter: MongoDBAdapter(clientPromise) as NextAuthAdapter,
+  // adapter: MongoDBAdapter(clientPromise) as NextAuthAdapter,
 };
 
 const handler = NextAuth(authOptions);
