@@ -2,12 +2,15 @@ import puppeteer from "puppeteer-core";
 import chromium from "@sparticuz/chromium-min";
 import { NextResponse } from "next/server";
 
+const remoteExecutablePath =
+  "https://github.com/Sparticuz/chromium/releases/download/v135.0.0-next.3/chromium-v135.0.0-next.3-pack.x64.tar";
+
 export async function GET() {
   // Launch the browser and open a new blank page
   const browser = await puppeteer.launch({
     args: chromium.args,
     defaultViewport: chromium.defaultViewport,
-    executablePath: await chromium.executablePath(),
+    executablePath: await chromium.executablePath(remoteExecutablePath),
     headless: chromium.headless,
   });
   const page = await browser.newPage();
